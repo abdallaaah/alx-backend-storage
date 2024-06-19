@@ -1,2 +1,2 @@
 // find specific record count
-db.school.find({name:"Holberton school"}).count()
+db.school.find().count()
