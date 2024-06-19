@@ -1,4 +1,2 @@
 // insert into documents
-#!/bin/bash
-mongo $1 --eval 'db.school.insert({"name": "Holberton school"})'
-
+db.school.insertOne({name:"school"})
