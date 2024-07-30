@@ -17,3 +17,27 @@ class Cache():
         key = str(uuid.uuid4())
         self._redis.set(key, data)
         return key
+
+    def get_int(self, value: int) -> int:
+        """Convert into int ant return it"""
+        x = int(value)
+        return x
+
+    def get_str(self, value: str) -> str:
+        """Convert to string and return it"""
+        x = str(value)
+        return x
+
+    def get(self, key: str, fn:  Union[str, bytes, Callable, int, float, None]) -> Union[str, bytes, int, float, Callable, None]:
+        """Check the type on fn from the dict then retrive convert"""
+        value = self._redis.get(key)
+        if fn == int:
+            x = self.get_int(value)
+            return x
+        if fn == str:
+            x = self.get_str(value)
+            return x
+        if callable(fn):
+            return fn(value)
+        if fn is None:
+            return value
