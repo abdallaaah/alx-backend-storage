@@ -31,6 +31,8 @@ class Cache():
     def get(self, key: str, fn:  Union[str, bytes, Callable, int, float, None]) -> Union[str, bytes, int, float, Callable, None]:
         """Check the type on fn from the dict then retrive convert"""
         value = self._redis.get(key)
+        if value is None:
+            return None
         if fn == int:
             x = self.get_int(value)
             return x
