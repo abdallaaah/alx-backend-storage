@@ -2,7 +2,7 @@
 """ test work with redis """
 import redis
 import uuid
-from typing import Union, Callable
+from typing import Union, Callable, Optional, Any
 
 
 class Cache():
@@ -28,11 +28,11 @@ class Cache():
         x = str(value)
         return x
 
-    def get(self, key: str, fn:  Union[str, bytes, Callable, int, float, None]) -> Union[str, bytes, int, float, Callable, None]:
+    def get(self, key: str, fn:  Optional[Callable] = None) -> Any:
         """Check the type on fn from the dict then retrive convert"""
         value = self._redis.get(key)
         if value is None:
-            return None
+            return
         if fn == int:
             x = self.get_int(value)
             return x
